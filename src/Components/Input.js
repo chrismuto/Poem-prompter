@@ -9,21 +9,21 @@ export default function Input() {
     const { name, value } = e.target;
     if (name === "inputField") {
       setFormState({ ...formState, [name]: value });
-      console.log(formState);
     }
+    console.log(formState);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      try {
+        // requestPoem({ variables: { ...formState } });
+      } catch (err) {
+        console.error(err);
+        alert("an error has occurred, please try again");
+      }
+      setFormState({ inputText: "" });
+    };
     };
 
-    try {
-      // requestPoem({ variables: { ...formState } });
-    } catch (err) {
-      console.error(err);
-      alert("an error has occurred, please try again");
-    }
-    setFormState({ inputText: "" });
-  };
   // const requestPoem = (data) => {
   //   fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
   //     method: "POST",
