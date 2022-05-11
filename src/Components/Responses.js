@@ -1,7 +1,7 @@
 export default function Responses() {
     return (
-        <div>
-            test a bunch of text
+        <div className="d-flex justify-content-center mt-5">
+            Response block
         </div>
     );
 }

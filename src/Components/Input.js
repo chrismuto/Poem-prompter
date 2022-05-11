@@ -1,4 +1,6 @@
 import { useState } from "react";
+import React from "react";
+import { Button } from "react-bootstrap";
 
 export default function Input() {
   const [formState, setFormState] = useState({
@@ -22,7 +24,7 @@ export default function Input() {
       }
       setFormState({ inputText: "" });
     };
-    };
+  };
 
   // const requestPoem = (data) => {
   //   fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
@@ -35,7 +37,7 @@ export default function Input() {
   //   });
   // };
   return (
-    <div className="d-flex justify-content-center">
+    <div className="text-center">
       <textarea
         type="text"
         className="col-9"
@@ -45,6 +47,9 @@ export default function Input() {
         value={formState.inputField}
         onChange={handleInputChange}
       />
+      <div className="d-flex col-9 m-auto my-2 justify-content-end">
+      <Button variant="primary">Primary</Button>{' '}
+      </div>
     </div>
   );
 }
