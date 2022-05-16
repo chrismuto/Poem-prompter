@@ -3,8 +3,11 @@ import React from "react";
 import { Button } from "react-bootstrap";
 
 export default function Input() {
+
+  const token =  process.env.API_KEY;
+
   const [formState, setFormState] = useState({
-    inputText: "",
+    inputField: "",
   });
 
   const handleInputChange = (e) => {
@@ -12,30 +15,31 @@ export default function Input() {
     if (name === "inputField") {
       setFormState({ ...formState, [name]: value });
     }
-    console.log(formState);
-
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        // requestPoem({ variables: { ...formState } });
-      } catch (err) {
-        console.error(err);
-        alert("an error has occurred, please try again");
-      }
-      setFormState({ inputText: "" });
-    };
   };
-
-  // const requestPoem = (data) => {
-  //   fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${process.env.local.API_KEY}`,
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  // };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      requestPoem({ variables: { ...formState } });
+    } catch (err) {
+      console.error(err);
+      alert("an error has occurred, please try again");
+    }
+    setFormState({ inputField: "" });
+  };
+  
+  const requestPoem = (data) => {
+    fetch("https://api.openai.com/v1/engines/text-curie-001/completions?prompt=" + formState.inputField + "&instruction=text completion&max_tokens=5&temperature=0.1&echo=true/", {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Access-Control-Allow-Credentials": "true",
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ` + token,
+      },
+      body: JSON.stringify(data),
+    });
+  };
   return (
     <div className="text-center">
       <textarea
@@ -48,7 +52,7 @@ export default function Input() {
         onChange={handleInputChange}
       />
       <div className="d-flex col-9 m-auto my-2 justify-content-end">
-      <Button variant="primary">Primary</Button>{' '}
+      <Button variant="primary" type="submit" onClick={handleSubmit} >Primary</Button>
       </div>
     </div>
   );
