@@ -3,9 +3,6 @@ import React from "react";
 import { Button } from "react-bootstrap";
 
 export default function Input() {
-
-  const token =  process.env.API_KEY;
-
   const [formState, setFormState] = useState({
     inputField: "",
   });
@@ -31,11 +28,11 @@ export default function Input() {
   const requestPoem = (data) => {
     fetch("https://api.openai.com/v1/engines/text-curie-001/completions?prompt=" + formState.inputField + "&instruction=text completion&max_tokens=5&temperature=0.1&echo=true/", {
       method: "POST",
-      credentials: 'include',
+      // credentials: 'include',
       headers: {
         "Access-Control-Allow-Credentials": "true",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ` + token,
+        "Authorization": `Bearer ${process.env.REACT_APP_API_KEY}`,
       },
       body: JSON.stringify(data),
     });
