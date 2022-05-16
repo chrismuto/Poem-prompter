@@ -28,7 +28,6 @@ export default function Input() {
   const requestPoem = (data) => {
     fetch("https://api.openai.com/v1/engines/text-curie-001/completions?prompt=" + formState.inputField + "&instruction=text completion&max_tokens=5&temperature=0.1&echo=true/", {
       method: "POST",
-      // credentials: 'include',
       headers: {
         "Access-Control-Allow-Credentials": "true",
         "Content-Type": "application/json",
