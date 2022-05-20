@@ -30,11 +30,11 @@ export default function Input() {
   };
   
   const localSave = (data) => {
-    let a = [];
-    a = JSON.parse(localStorage.getItem("prevAnswers")) || [];
-    a.push(data);
-    console.log(a);
-    localStorage.setItem("prevAnswers", JSON.stringify(a));
+    let storedAnswers = [];
+    storedAnswers = JSON.parse(localStorage.getItem("prevAnswers")) || [];
+    storedAnswers.push(data);
+    console.log(storedAnswers);
+    localStorage.setItem("prevAnswers", JSON.stringify(storedAnswers));
   }
   
   const requestPoem = (data) => {
@@ -47,7 +47,6 @@ export default function Input() {
         presence_penalty: 0,
       })
       .then((response) => {
-        console.log(response.data.choices[0].text);
         localSave(response.data.choices[0].text);
       });
 
