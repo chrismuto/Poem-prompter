@@ -6,10 +6,13 @@ function App() {
   return (
     <div className="d-flex-block justify-content-center">
       <h1 className="col-9 m-auto my-3">
-        GPT3 Poem Prompter
+        GPT-3 Storyteller
       </h1>
-      <Input />
-      <Responses />
+      <p className="col-9 m-auto mb-3">
+        Be more descriptive for a better story!
+      </p>
+          <Input />
+          <Responses />
    </div>
   );
 }

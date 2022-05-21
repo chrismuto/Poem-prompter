@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 
 export default function Responses() {
-  let storedAnswers = JSON.parse(localStorage.getItem("prevAnswers")) || [];
+  let storedAnswers = JSON.parse(localStorage.getItem("prevAnswers")) || {};
 
-  const [formState, setFormState] = useState({
+  const [responses, setResponses] = useState({
     prevResponse: storedAnswers,
   });
 
-  const storageUpdate = () => {
-    setFormState({ ...formState, storedAnswers })
-};
+//   const storageUpdate = () => {
+//     setResponses({ ...responses, storedAnswers })
+// };
 
-    useEffect(() => {
-        storageUpdate();
-    }, [localStorage])
+window.addEventListener('storage', () => {
+    storedAnswers = JSON.parse(localStorage.getItem("prevAnswers"));
+    setResponses({ ...responses, prevResponse: storedAnswers });
+})
 
-console.log(formState);
+console.log(responses);
 
   return (
     <div className="d-flex justify-content-center mt-5">
-      <div name="prevResponse" value={formState.prevResponse}>
-        {formState.prevResponse.map((item) => (
-          <div key={item._id}>
+      <div name="prevResponse" className="d-flex-block justify-content-center col-10">
+        {responses.prevResponse.map((item) => (
+          <div key={Object.keys(item)} className="mx-5 my-3 p-2 responses">
             {item}
           </div>
         ))}

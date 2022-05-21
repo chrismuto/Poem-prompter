@@ -6,7 +6,6 @@ const { Configuration, OpenAIApi } = require("openai");
 
 export default function Input() {
 
-  
   const configuration = new Configuration({
     apiKey: process.env.REACT_APP_API_KEY,
   });
@@ -32,16 +31,16 @@ export default function Input() {
   const localSave = (data) => {
     let storedAnswers = [];
     storedAnswers = JSON.parse(localStorage.getItem("prevAnswers")) || [];
-    storedAnswers.push(data);
-    console.log(storedAnswers);
+    storedAnswers.unshift(data);
     localStorage.setItem("prevAnswers", JSON.stringify(storedAnswers));
+    window.dispatchEvent(new Event("storage"));
   }
   
   const requestPoem = (data) => {
     openai.createCompletion("text-curie-001", {
         prompt: "finish a story that starts with " + data,
         temperature: 0.5,
-        max_tokens: 100,
+        max_tokens: 200,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
