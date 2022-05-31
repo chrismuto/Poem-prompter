@@ -9,7 +9,7 @@ function App() {
         GPT-3 Storyteller
       </h1>
       <p className="col-9 m-auto mb-3">
-        Be more descriptive for a better story!
+        Select an engine and write a prompt. Be more descriptive for a better story!
       </p>
           <Input />
           <Responses />

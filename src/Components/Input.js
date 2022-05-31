@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { Button } from "react-bootstrap";
+import EngineSelect from "./EngineSelect";
 const { Configuration, OpenAIApi } = require("openai");
 
 
@@ -12,20 +13,25 @@ export default function Input() {
   
   const openai = new OpenAIApi(configuration);
   
-  const [formState, setFormState] = useState({
+  const [inputState, setInputState] = useState({
     inputField: "",
   });
-  
+
+  const [chooseEngine, setEngine] = useState();
+
+  const handleEngineChange = (e) => {
+      setEngine(e.target.value);
+      console.log(e.target.value);
+    };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "inputField") {
-      setFormState({ ...formState, [name]: value });
-    }
+      setInputState({ ...inputState, [name]: value });
   };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    requestPoem(formState.inputField);
+    requestPoem(inputState.inputField);
   };
   
   const localSave = (data) => {
@@ -49,20 +55,21 @@ export default function Input() {
         localSave(response.data.choices[0].text);
       });
 
-    setFormState({ inputField: "" });
+    setInputState({ inputField: "" });
   };
 
   return (
     <div className="text-center">
-      <textarea
-        type="text"
-        className="col-9"
-        placeholder="Enter a prompt!"
-        id="inputField"
-        name="inputField"
-        value={formState.inputField}
-        onChange={handleInputChange}
-      />
+      <EngineSelect props={chooseEngine} func={handleEngineChange} />
+        <textarea
+          type="text"
+          className="col-9"
+          placeholder="Enter a prompt!"
+          id="inputField"
+          name="inputField"
+          value={inputState.inputField}
+          onChange={handleInputChange}
+        />
       <div className="d-flex col-9 m-auto my-2 justify-content-end">
         <Button variant="primary" type="submit" onClick={handleSubmit}>
           Send Prompt
