@@ -21,7 +21,6 @@ export default function Input() {
 
   const handleEngineChange = (e) => {
       setEngine(e.target.value);
-      console.log(e.target.value);
     };
 
   const handleInputChange = (e) => {
@@ -43,7 +42,7 @@ export default function Input() {
   }
   
   const requestPoem = (data) => {
-    openai.createCompletion("text-curie-001", {
+    openai.createCompletion(chooseEngine, {
         prompt: "finish a story that starts with " + data,
         temperature: 0.5,
         max_tokens: 200,
